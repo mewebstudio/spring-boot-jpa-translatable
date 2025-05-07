@@ -203,31 +203,74 @@ implementation 'com.mewebstudio:spring-boot-jpa-translatable:0.1.0'
 
 You can extend these interfaces and abstract class to implement your own translatable entities and services:
 
+### Translatable Entity Example
 ```java
 @Entity
-public class Product implements ITranslatable<Long, ProductTranslation> {
+public class Category implements ITranslatable<Long, CategoryTranslation> {
     @Id private Long id;
 
     @OneToMany(mappedBy = "owner")
-    private List<ProductTranslation> translations;
+    private List<CategoryTranslation> translations;
 
     // getters...
 }
 ```
 
+### Translation Entity Example
 ```java
 @Entity
-public class ProductTranslation implements ITranslation<Long, Product> {
+public class CategoryTranslation implements ITranslation<Long, Category> {
     @Id private Long id;
 
     @ManyToOne
-    private Product owner;
+    private Category owner;
 
     private String locale;
     private String name;
 
     // getters...
 }
+```
+
+### Translatable Repository Example
+```java
+public interface CategoryRepository extends JpaTranslatableRepository<Category, String, CategoryTranslation> {
+    // Custom query methods can be added here
+}
+```
+
+### Translation Repository Example
+```java
+public interface CategoryTranslationRepository extends JpaTranslationRepository<CategoryTranslation, String, Category> {
+    // Custom query methods can be added here
+}
+```
+
+### Translatable Service Example
+```java
+@Service
+@Slf4j
+public class CategoryService extends AbstractTranslatableService<Category, String, CategoryTranslation> {
+    private final CategoryRepository categoryRepository;
+    private final CategoryTranslationRepository categoryTranslationRepository;
+
+    /**
+     * Constructs a new CategoryService.
+     *
+     * @param categoryRepository            the category repository
+     * @param categoryTranslationRepository the category translation repository
+     */
+    public CategoryService(CategoryRepository categoryRepository, CategoryTranslationRepository categoryTranslationRepository) {
+        super(categoryRepository);
+        this.categoryRepository = categoryRepository;
+        this.categoryTranslationRepository = categoryTranslationRepository;
+
+        log.debug("CategoryService initialized with repository: {}", categoryRepository);
+        Objects.requireNonNull(categoryRepository, "CategoryRepository cannot be null");
+    }
+
+    // Custom business logic methods can be added here
+}    
 ```
 
 ---
