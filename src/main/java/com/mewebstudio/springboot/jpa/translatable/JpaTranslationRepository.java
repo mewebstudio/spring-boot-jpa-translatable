@@ -76,16 +76,6 @@ public interface JpaTranslationRepository<T extends ITranslation<ID, OWNER>, ID,
     T findByOwnerIdAndLocale(ID ownerId, String locale);
 
     /**
-     * Finds all translations with a specific name and locale.
-     *
-     * @param name   The name to search for.
-     * @param locale The locale of the translation.
-     * @return List of translations.
-     */
-    @Query("SELECT t FROM #{#entityName} t WHERE t.name = :name AND t.locale = :locale")
-    List<T> findByNameAndLocale(String name, String locale);
-
-    /**
      * Deletes all translations for a specific locale.
      *
      * @param locale The locale of the translations to delete.
