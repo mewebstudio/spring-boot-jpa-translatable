@@ -95,17 +95,6 @@ public abstract class AbstractTranslationService<T extends ITranslation<ID, OWNE
     }
 
     /**
-     * Finds all translations with a specific name and locale.
-     *
-     * @param name   The name to search for in translations.
-     * @param locale The locale of the translation.
-     * @return List of translations.
-     */
-    public List<T> findByNameAndLocale(String name, String locale) {
-        return repository.findByNameAndLocale(name, locale);
-    }
-
-    /**
      * Saves a translation entity.
      *
      * @param translation The translation entity to save.

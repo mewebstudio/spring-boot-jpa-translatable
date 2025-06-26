@@ -113,9 +113,6 @@ public interface JpaTranslationRepository<T extends ITranslation<ID, OWNER>, ID,
     @Query("SELECT t FROM #{#entityName} t WHERE t.owner.id = :ownerId AND t.locale = :locale")
     T findByOwnerIdAndLocale(ID ownerId, String locale);
 
-    @Query("SELECT t FROM #{#entityName} t WHERE t.name = :name AND t.locale = :locale")
-    List<T> findByNameAndLocale(String name, String locale);
-
     @Modifying
     @Query("DELETE FROM #{#entityName} t WHERE t.locale = :locale")
     int deleteByLocale(String locale);
@@ -188,13 +185,13 @@ Add the following dependency to your `pom.xml` file:
 <dependency>
   <groupId>com.mewebstudio</groupId>
   <artifactId>spring-boot-jpa-translatable</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 #### for gradle users
 Add the following dependency to your `build.gradle` file:
 ```groovy
-implementation 'com.mewebstudio:spring-boot-jpa-translatable:0.1.0'
+implementation 'com.mewebstudio:spring-boot-jpa-translatable:0.1.1'
 ```
 
 ---
