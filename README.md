@@ -331,7 +331,7 @@ public class CategoryService extends AbstractTranslatableService<Category, Strin
 ## 🛠 Requirements
 
 - Java 17+
-- Spring Boot 3.x
+- Spring Boot 3.x+
 - Spring Data JPA
 
 ---
